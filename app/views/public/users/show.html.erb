@@ -1,0 +1,16 @@
+<!-- ユーザーの情報 -->
+<div>
+  <h3><%= @user.name %></h3>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  <p><%= @user.introduction %></p>
+</div>
+
+<% @photo.each do |photo| %>
+  <%= link_to photo_path(photo.id) do %>
+    <%= image_tag photo.get_image %>
+  <% end %>
+  <p>投稿画像 :<%= image_tag photo.user.get_profile_image(100,100) %></p>
+  <p>タイトル：<%= photo.title %></p>
+  <p>紹介：<%= photo.introduction %></p>
+  <p>ユーザーネーム：<%= photo.user.name %></p>
+<% end %>

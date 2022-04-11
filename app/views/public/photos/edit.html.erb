@@ -1,0 +1,45 @@
+<%= form_with model:@photo, url: 'public_photos_path', local:true do |f| %>
+
+  <div class="field">
+    <%= f.file_field :image, accept: "image/*" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :introduction %>
+    <%= f.text_field :introduction %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= f.label :lens %>
+    <%= f.text_field :lens %>
+  </div>
+
+  <div class="field">
+    <%= f.label :camera %>
+    <%= f.text_field :camera %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %>
+    <%= f.text_field :date %>
+  </div>
+
+  <div class="action">
+    <%=f.submit "編集完了" %>
+  </div>
+
+  <div class="link">
+    <%= link_to "Show",public_photo_path %> | <%= link_to "Back", public_photos_path %>
+  </div>
+
+<% end %>

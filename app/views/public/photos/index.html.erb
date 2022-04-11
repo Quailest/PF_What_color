@@ -1,1 +1,6 @@
-<h1>index</h1>
+<% @photos.each do |photo| %>
+    <%= image_tag photo.get_image %>
+    <%= image_tag photo.user.get_profile_image('100x100') %>
+    <%= photo.title %>
+    <%= photo.user.name %>
+<% end %>

@@ -11,9 +11,10 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  root to: 'homes#top'
+  root 'homes#top'
 
   namespace :public do
-    resources :photos, only: [:new, :create, :index,:show, :edit, :destroy,]
+    resources :photos, only: [:new, :create, :index,:show, :edit, :update,:destroy,]
+    resources :users, only: [:new, :show, :edit, :update]
   end
 end
