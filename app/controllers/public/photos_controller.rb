@@ -6,7 +6,7 @@ class Public::PhotosController < ApplicationController
   def create
     @photo=Photo.new(photo_params)
     @photo.user_id = current_user.id
-    @ohoto.save
+    @photo.save
     redirect_to public_photos_path
   end
 
@@ -16,6 +16,7 @@ class Public::PhotosController < ApplicationController
 
   def show
     @photo=Photo.find(params[:id])
+    @comment=Comment.new
   end
 
   def edit
@@ -23,12 +24,21 @@ class Public::PhotosController < ApplicationController
   end
 
   def update
-
+    @photo=Photo.find(params[:id])
+    @photo.update(photo_params)
+    redirect_to public_photo_path
   end
+
+  def destroy
+    @photo = Photo.find(params[:id])
+    @photo.delete
+    redirect_to public_photos_path
+  end
+
   #ストロングパラメータ
   private
 
   def photo_params
-    params.require(:photo).permit(:title, :introduction, :location, :lens, :camera, :date, :image)
+    params.require(:photo).permit(:title, :introduction, :location, :lens, :camera, :date, :image, :photo_id)
   end
 end

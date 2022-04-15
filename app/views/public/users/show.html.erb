@@ -1,16 +1,23 @@
-<!-- ユーザーの情報 -->
+<!-- ユーザーの情報表示-->
 <div>
   <h3><%= @user.name %></h3>
   <%= image_tag @user.get_profile_image(100,100) %>
-  <p><%= @user.introduction %></p>
+  <p>紹介: <%= @user.introduction %></p>
+  <p><%= link_to "プロフィール編集", edit_public_user_path %></p>
+  <%#= render "public/relationships/follow_list" %>
+  <p>フォロー数: <%= @user.followings.count %></p>
+  <%= link_to "フォロー一覧", public_user_followings_path(@user) %>
+  <p>フォロワー数: <%= @user.followers.count %></p>
+  <%= link_to "フォロワー一覧", public_user_followers_path(@user) %>
+
 </div>
 
-<% @photo.each do |photo| %>
-  <%= link_to photo_path(photo.id) do %>
+
+<% @photos.each do |photo| %>
+  <%= link_to public_photo_path(photo.id) do %>
     <%= image_tag photo.get_image %>
   <% end %>
-  <p>投稿画像 :<%= image_tag photo.user.get_profile_image(100,100) %></p>
   <p>タイトル：<%= photo.title %></p>
   <p>紹介：<%= photo.introduction %></p>
-  <p>ユーザーネーム：<%= photo.user.name %></p>
+  <p><%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id) %></p>
 <% end %>

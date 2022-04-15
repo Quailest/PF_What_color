@@ -1,4 +1,4 @@
-<%= form_with model:@photo, url: 'public_photos_path', local:true do |f| %>
+<%= form_with model: @photo,url: public_photos_path, local:true do |f| %>
 
   <div class="field">
     <%= f.file_field :image, accept: "image/*" %>
