@@ -17,4 +17,18 @@ class Photo < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
 
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @photo = Photo.where("title LIKE?","#{word}")
+    elsif search == "forward_match"
+      @photo = Photo.where("title LIKE?","#{word}%")
+    elsif search == "backward_match"
+      @photo = Photo.where("title LIKE?","%#{word}")
+    elsif search == "partial_match"
+      @photo = Photo.where("title LIKE?","%#{word}%")
+    else
+      @photo = Photo.all
+    end
+  end
+
 end

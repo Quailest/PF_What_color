@@ -26,6 +26,9 @@
         <li>
           <%= link_to "トップページ", public_photos_path %>
         </li>
+        <!--検索フォームのリンク -->
+          <%= render "public/searches/search" %>
+          
       <% else %>
         <li>
           <%= link_to "新規登録", new_user_registration_path %>

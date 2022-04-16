@@ -1,18 +1,31 @@
-<!-- ユーザーの情報表示-->
+<!-- ユーザー情報表示-->
 <div>
   <h3><%= @user.name %></h3>
   <%= image_tag @user.get_profile_image(100,100) %>
   <p>紹介: <%= @user.introduction %></p>
-  <p><%= link_to "プロフィール編集", edit_public_user_path %></p>
-  <%#= render "public/relationships/follow_list" %>
   <p>フォロー数: <%= @user.followings.count %></p>
   <%= link_to "フォロー一覧", public_user_followings_path(@user) %>
   <p>フォロワー数: <%= @user.followers.count %></p>
-  <%= link_to "フォロワー一覧", public_user_followers_path(@user) %>
+  <%= link_to "フォロワー一覧", public_user_followers_path(@user) %><br>
+<!--ここまで -->
+
+<!-- 詳細ページが自分のページであるかで分岐 -->
+  <% if @user ==  current_user %>
+    <p><%= link_to "プロフィール編集", edit_public_user_path %></p>
+  <% else %>
+
+<!-- そうでない場合にフォローボタン-->
+    <% if current_user.following?(@user) %>
+      <%= link_to "フォロー外す", public_user_relationships_path(@user), method: :delete %>
+    <% else %>
+      <%= link_to "フォローする", public_user_relationships_path(@user), method: :post %>
+    <% end %>
+
+  <% end %>
 
 </div>
 
-
+<!-- 投稿一覧 -->
 <% @photos.each do |photo| %>
   <%= link_to public_photo_path(photo.id) do %>
     <%= image_tag photo.get_image %>

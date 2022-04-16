@@ -3,16 +3,9 @@
         <%= image_tag photo.get_image %>
     <% end %>
     <p>タイトル: <%= photo.title %></p>
-    <p><%= image_tag photo.user.get_profile_image(100,100) %></p>
     <p>ニックネーム<%= photo.user.name %></p>
-    <%= link_to 'ユーザー詳細ページ', public_user_path(photo.user) %>
-
-    <!--フォローボタン-->
-    <% if current_user.following?(photo.user) %>
-        <%= link_to "フォロー外す", public_user_relationships_path(photo.user), method: :delete %>
-    <% else %>
-         <%= link_to "フォローする", public_user_relationships_path(photo.user), method: :post %>
+    <%= link_to  public_user_path(photo.user) do %>
+        <%= image_tag photo.user.get_profile_image(100,100) %>
     <% end %>
 
-    <p><%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id) %></p>
 <% end %>

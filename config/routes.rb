@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   root 'homes#top'
 
+
   namespace :public do
+    get "search" => "searches#search"
     resources :photos, only: [:new, :create, :index,:show, :edit, :update,:destroy,] do
       resource :favorites, only: [:create,:destroy]
       resources :comments, only: [:create,:destroy]
