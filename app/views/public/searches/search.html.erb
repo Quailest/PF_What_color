@@ -1,24 +1,15 @@
 <h2>Results index</h2>
 
 <table class="table table-hover table-inverse">
-  <!--検索対象がUserの時 -->
-  <% if @range == "User" %>
-    <tbody>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user.name %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% else %>
-    <!--検索対象がPhotoの時 -->
-    <tbody>
-      <% @photos.each do |photo| %>
-        <tr>
-          <td><%= photo.title %></td>
-          <td><%= photo.introduction %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  <% end %>
+
+    <!--検索した写真を表示-->
+  <tbody>
+    <% @photos.each do |photo| %>
+      <tr>
+        <td><%= photo.title %></td>
+        <td><%= photo.introduction %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
 </table>

@@ -3,10 +3,15 @@
   <h3><%= @user.name %></h3>
   <%= image_tag @user.get_profile_image(100,100) %>
   <p>紹介: <%= @user.introduction %></p>
-  <p>フォロー数: <%= @user.followings.count %></p>
-  <%= link_to "フォロー一覧", public_user_followings_path(@user) %>
-  <p>フォロワー数: <%= @user.followers.count %></p>
-  <%= link_to "フォロワー一覧", public_user_followers_path(@user) %><br>
+  フォロー数:
+  <%= link_to public_user_followings_path(@user) do %>
+   <%= @user.followings.count %>
+  <% end %>
+
+  フォロワー数:
+  <%= link_to public_user_followers_path(@user) do %>
+    <%= @user.followers.count %>
+  <% end %>
 <!--ここまで -->
 
 <!-- 詳細ページが自分のページであるかで分岐 -->

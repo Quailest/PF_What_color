@@ -1,10 +1,19 @@
-<%= image_tag @photo.get_image %>
-<p>タイトル:<%= @photo.title %></p>
-<p>説明：<%= @photo.introduction %></p>
-<p>撮影場所：<%= @photo.location %></p>
-<p>撮影カメラ：<%= @photo.camera %></p>
-<p>撮影レンズ：<%= @photo.lens %></p>
-<p>撮影日：<%= @photo.date %></p>
+<div class="container">
+  <div class="row">
+    <%= image_tag @photo.get_image %><br>
+    <% if @photo.user == current_user %>
+      <%= link_to "編集する", edit_public_photo_path %>
+    <% end %>
+|
+    <% if @photo.user == current_user %>
+      <%= link_to "削除する", public_photo_path(@photo), method: :delete %>
+    <% end %>
+    <p>タイトル:<%= @photo.title %></p>
+    <p>説明：<%= @photo.introduction %></p>
+    <p>撮影場所：<%= @photo.location %></p>
+    <p>撮影カメラ：<%= @photo.camera %></p>
+    <p>撮影レンズ：<%= @photo.lens %></p>
+    <p>撮影日：<%= @photo.date %></p>
 
 <!--いいねボタン-->
 <% if @photo.favorited_by?(current_user) %>
@@ -22,24 +31,17 @@
 <% end %>
 <!--ここまで-->
 
-<% if @photo.user == current_user %>
-    <%= link_to "編集する", edit_public_photo_path %>
-<% end %>
-
-<% if @photo.user == current_user %>
-  <%= link_to "削除する", public_photo_path(@photo), method: :delete %>
-<% end %>
-
 <!--コメント表示-->
 <div>
-  <p>コメント件数：<%= @photo.comments.count %></p>
+  <p>コメント：<%= @photo.comments.count %>件</p>
   <% @photo.comments.each do |comment| %>
-    <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
+    <%= image_tag comment.user.get_profile_image(100,100)%>
     <%= comment.user.name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+    <%= comment.created_at.strftime('%Y/%m/%d/%H:%M') %><br>
+    <%= comment.comment %><br>
     <% if comment.user == current_user %>
       <%= link_to "削除", public_photo_comment_path(comment.photo, comment), method: :delete %>
-    <% end %>
+    <% end %><br>
   <% end %>
 <!--ここまで-->
 
@@ -47,8 +49,10 @@
 <!--コメント投稿機能 -->
 <div>
   <%= form_with model: [@photo, @comment],url: public_photo_comments_path(@photo.id) do |f| %>
-    <%= f.text_area :comment, placeholder: "コメント" %>
+    <%= f.text_area :comment, placeholder: "コメントを記入する" %>
     <%= f.submit "送信" %>
   <% end %>
 </div>
 <!--ここまで-->
+</div>
+</div>
