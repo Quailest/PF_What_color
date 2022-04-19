@@ -4,8 +4,8 @@
     <% end %>
     <p>タイトル: <%= photo.title %></p>
     <p>ニックネーム<%= photo.user.name %></p>
-    <%= link_to  public_user_path(photo.user) do %>
-        <%= image_tag photo.user.get_profile_image(100,100) %>
+    <p><%= link_to  public_user_path(photo.user) do %>
+        <%= image_tag photo.user.get_profile_image(100,100) %></p>
     <% end %>
 
 <% end %>

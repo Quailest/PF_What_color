@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     sessions: "admin/sessions"
   }
 
-  root 'homes#top'
+  root 'public/photos#index'
 
 
   namespace :public do
