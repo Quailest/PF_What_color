@@ -10,8 +10,9 @@ class Public::PhotosController < ApplicationController
     redirect_to public_photos_path
   end
 
+#投稿一覧（投稿順になるように指定）
   def index
-    @photos=Photo.all
+    @photos=Photo.all.order(created_at: :desc)
   end
 
   def show
@@ -35,7 +36,7 @@ class Public::PhotosController < ApplicationController
     redirect_to public_photos_path
   end
 
-  #ストロングパラメータ
+#ストロングパラメータ
   private
 
   def photo_params
