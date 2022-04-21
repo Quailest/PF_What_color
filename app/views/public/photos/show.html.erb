@@ -1,19 +1,21 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-md-8 offset-md-1">
+    <div class="col-md-8">
     <h2><%= @photo.title %></h2>
-    <%= image_tag @photo.get_image %><br>
+    <%= image_tag @photo.get_image('1200x1200') %><br>
     <% if @photo.user == current_user %>
       <%= link_to "編集", edit_public_photo_path %> |
       <%= link_to "削除", public_photo_path(@photo), method: :delete %>
     <% end %>
+    </div>
+    <div class="col-md-8">
     <p>説明：<%= @photo.introduction %></p>
     <p>撮影場所：<%= @photo.location %></p>
     <p>撮影カメラ：<%= @photo.camera %></p>
     <p>撮影レンズ：<%= @photo.lens %></p>
     <p>撮影日：<%= @photo.date %></p>
-
+    </div>
 <!--いいねボタン-->
 <% if @photo.favorited_by?(current_user) %>
   <p>
@@ -33,12 +35,22 @@
 
 <!--コメント表示-->
 
-  <div class='col-md-8 offset-md-1'>
+  <div class='col-md-8'>
     <table class='table'>
-  コメント：<%= @photo.comments.count %>件<br>
+  コメント：<%= @photo.comments.count %>件
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Comment</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
   <% @photo.comments.each do |comment| %>
     <tr>
-      <td><%= image_tag comment.user.get_profile_image(100,100)%></td>
+      <td><%= image_tag comment.user.get_profile_image('100x100')%></td>
     <td><%= comment.user.name %></td>
     <td><%= comment.comment %></td>
     <td><%= comment.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
@@ -47,19 +59,20 @@
     <% end %><br>
   <% end %>
   </tr>
+  </tbody>
   </table>
 <!--ここまで-->
 
 </div>
-</div>
+
 <!--コメント投稿機能 -->
-<div class="col-md-8 offset-md-1">
+<div class="col-md-8 ">
   <%= form_with model: [@photo, @comment],url: public_photo_comments_path(@photo.id) do |f| %>
     <%= f.text_area :comment, placeholder: "コメントを記入する",:size => "100*100" %>
     <%= f.submit "送信" %>
   <% end %>
 </div>
 </div>
+</div>
 <!--ここまで-->
-</div>
-</div>
+

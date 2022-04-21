@@ -1,45 +1,46 @@
-<%= form_with model: @photo,url: public_photo_path, local:true do |f| %>
+<div class="container">
+  <div class="row">
+    <%= form_with model: @photo,url: public_photo_path, local:true do |f| %>
 
-  <div class="field">
-    <%= f.file_field :image, accept: "image/*" %>
+      <div class="form-group">
+        <%= f.label :image %>
+        <%= f.file_field :image,class: "form-control-file image", accept: "image/*" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title,placeholder: "(必須)",class: "form-control title" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :introduction %>
+        <%= f.text_field :introduction,class: "form-control introduction" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :location %>
+        <%= f.text_field :location,class: "form-control location" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :lens %>
+        <%= f.text_field :lens,class: "form-control lens" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :camera %>
+        <%= f.text_field :camera,class: "form-control camera" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :date %>
+        <%= f.text_field :date,class: "form-control date" %>
+      </div>
+
+      <div class="form-group">
+        <%=f.submit "編集完了"%>
+      </div>
+
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :introduction %>
-    <%= f.text_field :introduction %>
-  </div>
-
-  <div class="field">
-    <%= f.label :location %>
-    <%= f.text_field :location %>
-  </div>
-
-  <div class="field">
-    <%= f.label :lens %>
-    <%= f.text_field :lens %>
-  </div>
-
-  <div class="field">
-    <%= f.label :camera %>
-    <%= f.text_field :camera %>
-  </div>
-
-  <div class="field">
-    <%= f.label :date %>
-    <%= f.text_field :date %>
-  </div>
-
-  <div class="action">
-    <%=f.submit "編集完了" %>
-  </div>
-
-  <div class="link">
-    <%= link_to "戻る",public_photo_path %>
-  </div>
-
-<% end %>
+</div>

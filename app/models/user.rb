@@ -18,12 +18,12 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
 
-  def get_profile_image(width,height)
+  def get_profile_image(size)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg',content_type:'image/jpeg')
     end
-    profile_image.variant(resize_to_limit:[100,100]).processed
+    profile_image.variant(resize:[size]).processed
   end
 
   # フォロー処理
@@ -39,6 +39,13 @@ class User < ApplicationRecord
   #フォローしているか確認する処理
   def following?(user)
     followings.include?(user)
+  end
+
+  def self.guest
+    find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
   end
 
 end

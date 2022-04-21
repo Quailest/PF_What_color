@@ -41,6 +41,9 @@
             <li class="nav-item">
               <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
             </li>
+            <div class="nav-item">
+              <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+            </div>
             <li class="nav-item">
               <%= link_to '投稿する', new_user_session_path, class: 'nav-link text-dark' %>
             </li>

@@ -1,41 +1,64 @@
 <!-- ユーザー情報表示-->
-<div>
-  <h3><%= @user.name %></h3>
-  <%= image_tag @user.get_profile_image(100,100) %>
-  <p>紹介: <%= @user.introduction %></p>
-  フォロー数:
-  <%= link_to public_user_followings_path(@user) do %>
-   <%= @user.followings.count %>
-  <% end %>
-
-  フォロワー数:
-  <%= link_to public_user_followers_path(@user) do %>
-    <%= @user.followers.count %>
-  <% end %>
+<div classs="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>ユーザー情報</h2>
+        <table class='table'>
+          <tr><%= image_tag @user.get_profile_image('100x100') %></tr>
+          <tr>
+            <th>Name</th>
+            <th><%= @user.name %></th>
+          </tr>
+          <tr>
+            <th>Introduction</th>
+            <th><%= @user.introduction %></th>
+          </tr>
+          <tr>
+            <th>フォロー数</th>
+            <th>
+              <%= link_to public_user_followings_path(@user) do %>
+                <%= @user.followings.count %>
+              <% end %>
+            </th>
+          </tr>
+          <tr>
+            <th>フォロワー数</th>
+            <th>
+              <%= link_to public_user_followers_path(@user) do %>
+                <%= @user.followers.count %>
+              <% end %>
+            </th>
+          </tr>
 <!--ここまで -->
 
 <!-- 詳細ページが自分のページであるかで分岐 -->
-  <% if @user ==  current_user %>
+
+  <% if @user ==  current_user && @user.name != "guestuser" %>
     <p><%= link_to "プロフィール編集", edit_public_user_path %></p>
   <% else %>
 
 <!-- そうでない場合にフォローボタン-->
-    <% if current_user.following?(@user) %>
-      <%= link_to "フォロー外す", public_user_relationships_path(@user), method: :delete %>
-    <% else %>
-      <%= link_to "フォローする", public_user_relationships_path(@user), method: :post %>
+    <% if current_user.following?(@user) && @user.name != "guestuser" %>
+      <p><%= link_to "フォロー外す", public_user_relationships_path(@user), method: :delete %></p>
+    <% elsif @user.name != "guestuser" %>
+      <p><%= link_to "フォローする", public_user_relationships_path(@user), method: :post %></p>
     <% end %>
 
   <% end %>
-
+</table>
 </div>
 
 <!-- 投稿一覧 -->
+<div class='col-md-8 offset-md-1'>
+  <h2>星空ギャラリー</h2>
 <% @photos.each do |photo| %>
+  <h3>[<%= photo.title %>]</h3>
   <%= link_to public_photo_path(photo.id) do %>
-    <%= image_tag photo.get_image %>
+    <%= image_tag photo.get_image("1000x1000") %>
   <% end %>
-  <p>タイトル：<%= photo.title %></p>
   <p>紹介：<%= photo.introduction %></p>
   <p><%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id) %></p>
 <% end %>
+</div>
+</div>
+</div>
