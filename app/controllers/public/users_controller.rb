@@ -19,6 +19,12 @@ class Public::UsersController < ApplicationController
     redirect_to public_user_path
   end
 
+  def favorites
+    @user = User.find(params[:id])
+    favorites= Favorite.where(user_id: @user.id).pluck(:photo_id)
+    @favorite_photos = Photo.find(favorites)
+  end
+
   private
 
   def user_params

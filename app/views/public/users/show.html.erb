@@ -29,6 +29,14 @@
               <% end %>
             </th>
           </tr>
+          <tr>
+            <th>いいね一覧</th>
+            <th>
+              <%= link_to favorites_public_user_path(@user) do %>
+                <%= @user.favorites.count %>
+              <% end %>
+            </th>
+          </tr>
 <!--ここまで -->
 
 <!-- 詳細ページが自分のページであるかで分岐 -->

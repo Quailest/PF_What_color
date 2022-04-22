@@ -17,19 +17,9 @@
     <p>撮影日：<%= @photo.date %></p>
     </div>
 <!--いいねボタン-->
-<% if @photo.favorited_by?(current_user) %>
-  <p>
-    <%= link_to public_photo_favorites_path(@photo), method: :delete do %>
-      ♥<%= @photo.favorites.count %> いいね
-    <% end %>
-  </p>
-  <% else %>
-  <p>
-    <%= link_to public_photo_favorites_path(@photo), method: :post do %>
-      ♡<%= @photo.favorites.count %> いいね
-    <% end %>
-  </p>
-<% end %>
+<td id="favorite_buttons_<%= @photo.id %>">
+  <%= render "public/favorites/favorite", photo: @photo %>
+</td>
 <!--ここまで-->
 </div>
 
@@ -37,33 +27,32 @@
 
   <div class='col-md-8'>
     <table class='table'>
-  コメント：<%= @photo.comments.count %>件
-  <thead>
-    <tr>
-      <th></th>
-      <th>Name</th>
-      <th>Comment</th>
-      <th>Date</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @photo.comments.each do |comment| %>
-    <tr>
-      <td><%= image_tag comment.user.get_profile_image('100x100')%></td>
-    <td><%= comment.user.name %></td>
-    <td><%= comment.comment %></td>
-    <td><%= comment.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
-    <% if comment.user == current_user %>
-      <td><%= link_to "削除", public_photo_comment_path(comment.photo, comment), method: :delete %></td>
-    <% end %><br>
-  <% end %>
-  </tr>
-  </tbody>
-  </table>
-<!--ここまで-->
+      コメント：<%= @photo.comments.count %>件
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Comment</th>
+          <th>Date</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-</div>
+      <tbody>
+        <% @photo.comments.each do |comment| %>
+          <tr>
+            <td><%= image_tag comment.user.get_profile_image('100x100')%></td>
+            <td><%= comment.user.name %></td>
+            <td><%= comment.comment %></td>
+            <td><%= comment.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
+            <% if comment.user == current_user %>
+              <td><%= link_to "削除", public_photo_comment_path(comment.photo, comment), method: :delete %></td>
+            <% end %><br>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
 <!--コメント投稿機能 -->
 <div class="col-md-8 ">
@@ -74,5 +63,5 @@
 </div>
 </div>
 </div>
-<!--ここまで-->
+
 
