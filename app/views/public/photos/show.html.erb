@@ -17,8 +17,10 @@
     <p>撮影日：<%= @photo.date %></p>
     </div>
 <!--いいねボタン-->
-<td id="favorite_buttons_<%= @photo.id %>">
+<td>
+  <div id="favorite_buttons_<%= @photo.id %>">
   <%= render "public/favorites/favorite", photo: @photo %>
+</div>
 </td>
 <!--ここまで-->
 </div>
