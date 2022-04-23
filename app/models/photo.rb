@@ -19,7 +19,7 @@ class Photo < ApplicationRecord
 
 #部分一致で検索
   def self.looks(search, word)
-    @photo = Photo.where("title LIKE?","%#{word}%")
+    @photo = Photo.where("title LIKE? OR introduction LIKE?","%#{word}%","%#{word}%")
   end
 
 end
