@@ -21,7 +21,14 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-            <% if user_signed_in? %>
+            <% if admin_signed_in? %>
+              <li class="nav-item">
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %>
+            </li>
+            <% elsif user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to '投稿一覧', public_photos_path, class: 'nav-link text-dark' %>
+            </li>
             <li class="nav-item">
               <%= link_to '投稿フォーム', new_public_photo_path, class: 'nav-link text-dark' %>
             </li>
@@ -41,9 +48,6 @@
             <li class="nav-item">
               <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
             </li>
-            <div class="nav-item">
-              <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
-            </div>
             <li class="nav-item">
               <%= link_to '投稿する', new_user_session_path, class: 'nav-link text-dark' %>
             </li>
@@ -54,9 +58,11 @@
         </div>
       </nav>
     </header>
+
     <main class="mb-auto">
     <%= yield %>
     </main>
+
     <footer class="bg-dark text-white pt-5 pb-4">
       <div class="container">
         <div class="row no-gutters">
@@ -69,10 +75,7 @@
             <h6 class="text-white mt-2 mb-3">Link</h6>
             <ul class="p-0 list-unstyled">
               <li>
-                <a href="" title="About" class="text-white-50">会社概要</a>
-              </li>
-              <li>
-                <a href="" title="License informations" class="text-white-50">プライバシーポリシー</a>
+                <a href="" title="About" class="text-white-50">お問い合わせ</a>
               </li>
             </ul>
           </div>

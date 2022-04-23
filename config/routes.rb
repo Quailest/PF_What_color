@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'relationships/followings'
-    get 'relationships/followers'
-  end
-  #ユーザーログイン用
+
+
   devise_for :users, controllers: {
     registrations: "public/registrations",
     sessions: 'public/sessions'
@@ -15,20 +12,21 @@ Rails.application.routes.draw do
   end
 
   #管理者ログイン用
-  devise_for :admin, controllers: {
+  devise_for :admin, skip: [:registrations, :passwords],controllers: {
     sessions: "admin/sessions"
   }
 
-  root 'public/photos#index'
-
+  root 'public/homes#top'
 
   namespace :public do
     get "search" => "searches#search"
+    get 'relationships/followings'
+    get 'relationships/followers'
     resources :photos, only: [:new, :create, :index,:show, :edit, :update,:destroy,] do
       resource :favorites, only: [:create,:destroy]
       resources :comments, only: [:create,:destroy]
     end
-    resources :users, only: [:new, :show, :edit, :update] do
+    resources :users, only: [:new, :index, :show, :edit, :update] do
       member do
         get :favorites
       end
@@ -37,4 +35,21 @@ Rails.application.routes.draw do
       get 'followers' => 'relationships#followers', as: 'followers'
     end
   end
+
+  namespace :admin do
+    root to: 'homes#top'
+    resources :photos, only: [:index,:show, :edit, :update,:destroy,] do
+      resources :comments, only: [:destroy]
+    end
+    resources :users, only: [:index,:show,:edit,:update]
+  end
+
+  devise_scope :user do
+    get '/customers/sign_out' => 'devise/sessions#destroy'
+  end
+
+  devise_scope :admin do
+    get '/admin/sign_out' => 'devise/sessions#destroy'
+  end
+
 end

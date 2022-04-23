@@ -18,6 +18,7 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
 
+  # プロフィール画像用
   def get_profile_image(size)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -26,12 +27,10 @@ class User < ApplicationRecord
     profile_image.variant(resize:[size]).processed
   end
 
-  # フォロー処理
   def follow(user_id)
     relationships.create(followed_id: user_id)
   end
 
-  #アンフォロー処理
   def unfollow(user_id)
     relationships.find_by(followed_id: user_id).destroy
   end
@@ -41,11 +40,17 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
+  #ゲストログイン用
   def self.guest
     find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"
     end
+  end
+
+  #退会後ログイン不可の記述
+  def active_for_authentication?
+    super && (is_deleted == false)
   end
 
 end

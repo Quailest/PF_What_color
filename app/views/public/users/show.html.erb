@@ -9,10 +9,12 @@
             <th>Name</th>
             <th><%= @user.name %></th>
           </tr>
+          <% if @user.name != "guestuser" %>
           <tr>
             <th>Introduction</th>
             <th><%= @user.introduction %></th>
           </tr>
+
           <tr>
             <th>フォロー数</th>
             <th>
@@ -37,6 +39,7 @@
               <% end %>
             </th>
           </tr>
+          <% end %>
 <!--ここまで -->
 
 <!-- 詳細ページが自分のページであるかで分岐 -->
@@ -57,6 +60,7 @@
 </div>
 
 <!-- 投稿一覧 -->
+
 <div class='col-md-8 offset-md-1'>
   <h2>星空ギャラリー</h2>
 <% @photos.each do |photo| %>
@@ -68,5 +72,6 @@
   <p><%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id) %></p>
 <% end %>
 </div>
+
 </div>
 </div>

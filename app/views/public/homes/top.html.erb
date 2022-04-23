@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-10">
+      <div class="text-center m-5">
+        <div class="mv-text">
+            <h1>ようこそ、What color?へ</h1><br>
+            <p>What color?は、星景写真を投稿、閲覧できるコミュニティサイトです。</p>
+            <p>あなたの色は何色ですか?星景写真であなたの色を表現しましょう。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="btn-wrapper col-10 mx-auto">
+
+    <div class="row">
+          <%= link_to 'Log in',new_user_session_path, class: "btn btn-info btn-sm btn-block mb-3 sign_in" %>
+        </div>
+    <div class="row">
+          <%= link_to 'Sign Up',new_user_registration_path, class: "btn btn-success btn-sm btn-block mb-3 sign_up" %>
+        </div>
+    <div class="row">
+      <%= link_to 'Guest Log in', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+    </div>
+  </div>
+</div>

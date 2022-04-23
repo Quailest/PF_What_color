@@ -4,10 +4,7 @@
     <div class="col-md-8">
     <h2><%= @photo.title %></h2>
     <%= image_tag @photo.get_image('1200x1200') %><br>
-    <% if @photo.user == current_user %>
-      <%= link_to "編集", edit_public_photo_path %> |
-      <%= link_to "削除", public_photo_path(@photo), method: :delete %>
-    <% end %>
+      <%= link_to "削除", admin_photo_path(@photo), method: :delete %>
     </div>
     <div class="col-md-8">
     <p>説明：<%= @photo.introduction %></p>
@@ -17,12 +14,7 @@
     <p>撮影日：<%= @photo.date %></p>
     </div>
 <!--いいねボタン-->
-<td>
-  <div id="favorite_buttons_<%= @photo.id %>">
-  <%= render "public/favorites/favorite", photo: @photo %>
-</div>
 
-</td>
 <!--ここまで-->
 </div>
 
@@ -48,22 +40,15 @@
             <td><%= comment.user.name %></td>
             <td><%= comment.comment %></td>
             <td><%= comment.created_at.strftime('%Y/%m/%d/%H:%M') %></td>
-            <% if comment.user == current_user %>
-              <td><%= link_to "削除", public_photo_comment_path(comment.photo, comment), method: :delete %></td>
-            <% end %><br>
+
+            <td><%= link_to "削除", admin_photo_comment_path(comment.photo, comment), method: :delete %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 
-<!--コメント投稿機能 -->
-<div class="col-md-8 ">
-  <%= form_with model: [@photo, @comment],url: public_photo_comments_path(@photo.id) do |f| %>
-    <%= f.text_area :comment, placeholder: "コメントを記入する",:size => "100*100" %>
-    <%= f.submit "送信" %>
-  <% end %>
-</div>
+
 </div>
 </div>
 
