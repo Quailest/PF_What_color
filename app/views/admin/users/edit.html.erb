@@ -1,31 +1,26 @@
 <div class="container">
-<h4><%= @user.name %>様の会員情報</h4>
-<div class="row">
+  <h4><%= @user.name %>様の会員情報</h4>
+  <div class="row">
+    <%= form_with model: @user,url: admin_user_path, local:true do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name,class: "form-control-file name", autofocus: true, id:"inputName", placeholder:"名前"%>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email,autofocus: true,class: "form-control introduction" %>
+      </div>
+      <div class="form-group col-xs-9">
+        <%= f.label :会員ステータス %>
+        <%= f.radio_button :is_deleted, false %>
+        <%= f.label :有効 %>
+        <%= f.radio_button :is_deleted, true %>
+        <%= f.label :退会 %>
+      </div>
 
-<%= form_for(@user,url:admin_user_path) do |f| %>
-<div class="col-xs-10">
-
-  <div class="form-group col-xs-9">
-  <%= f.label :名前 %>
-  <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+      <div class="form-group">
+        <%=f.submit "編集完了"%>
+      </div>
+    <% end %>
   </div>
-
-  <div class="form-group col-xs-9">
-  <%= f.label :メールアドレス %>
-  <%= f.email_field :email, autofocus: true, autocomplete: "email"%><br>
-  </div>
-
-  <div class="form-group col-xs-9">
-  <%= f.label :会員ステータス %>
-  <%= f.radio_button :is_deleted, false %>
-  <%= f.label :有効 %>
-  <%= f.radio_button :is_deleted, true %>
-  <%= f.label :退会 %>
-  </div>
-
-
-  <%= f.submit "変更を保存",class:"btn btn-success" %>
-<% end %>
-</div>
-</div>
 </div>

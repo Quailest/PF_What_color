@@ -1,8 +1,6 @@
-<% if user_signed_in? %>
-  <div class="search_form">
-    <%= form_with url: public_search_path, local: true, method: :get do |f| %>
-      <%= f.text_field :word, placeholder: "(キーワード例)天の川,夏の大三角",size: 40 %>
-      <%= f.submit "検索",class: "btn btn-dark" %>
-    <% end %>
-  </div>
-<% end %>
+<div class="search_form">
+  <%= form_with url: public_search_path, local: true, method: :get do |f| %>
+    <%= f.text_field :word, placeholder: "(キーワード例)天の川,夏の大三角",size: 40 %>
+    <%= f.submit "検索" %>
+  <% end %>
+</div>

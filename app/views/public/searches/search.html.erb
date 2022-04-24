@@ -1,28 +1,27 @@
 <h2>検索結果</h2>
 
-<table class="table table-hover table-inverse">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Title</th>
-      <th>Introduction</th>
-      <th>Image</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-    <!--検索した写真を表示-->
-  <tbody>
-    <% @photos.each do |photo| %>
+  <table class="table table-hover table-inverse">
+    <thead>
       <tr>
-        <td></td>
-        <td><%= photo.title %></td>
-        <td><%= photo.introduction %></td>
-        <td><%= image_tag photo.get_image('100x100') %></td>
-        <td>
-          <%= link_to "Show",public_photo_path(photo.id) %>
-        </td>
+        <th></th>
+        <th>Title</th>
+        <th>Introduction</th>
+        <th>Image</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-
-</table>
+    </thead>
+  
+    <tbody>
+      <% @photos.each do |photo| %>
+        <tr>
+          <td></td>
+          <td><%= photo.title %></td>
+          <td><%= photo.introduction %></td>
+          <td><%= image_tag photo.get_image('100x100') %></td>
+          <td>
+            <%= link_to "Show",public_photo_path(photo.id) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>

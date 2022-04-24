@@ -2,11 +2,6 @@ class Public::PhotosController < ApplicationController
 
   def new
     @photo=Photo.new
-
-    if params[:tag]
-      Tag.create(name: params[:tag])
-    end
-
   end
 
   def create
@@ -18,7 +13,7 @@ class Public::PhotosController < ApplicationController
 
   def index
     @photos=Photo.all.order(created_at: :desc)
-
+#タグ検索用
     if params[:tag_ids]
       @photos = []
       params[:tag_ids].each do |key, value|

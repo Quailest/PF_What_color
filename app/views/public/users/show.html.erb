@@ -1,7 +1,6 @@
-<!-- ユーザー情報表示-->
 <div classs="container">
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-3">
       <h2>ユーザー情報</h2>
         <table class='table'>
           <tr><%= image_tag @user.get_profile_image('100x100') %></tr>
@@ -10,68 +9,65 @@
             <th><%= @user.name %></th>
           </tr>
           <% if @user.name != "guestuser" %>
-          <tr>
-            <th>Introduction</th>
-            <th><%= @user.introduction %></th>
-          </tr>
-
-          <tr>
-            <th>フォロー数</th>
-            <th>
-              <%= link_to public_user_followings_path(@user) do %>
-                <%= @user.followings.count %>
-              <% end %>
-            </th>
-          </tr>
-          <tr>
-            <th>フォロワー数</th>
-            <th>
-              <%= link_to public_user_followers_path(@user) do %>
-                <%= @user.followers.count %>
-              <% end %>
-            </th>
-          </tr>
-          <tr>
-            <th>いいね一覧</th>
-            <th>
-              <%= link_to favorites_public_user_path(@user) do %>
-                <%= @user.favorites.count %>
-              <% end %>
-            </th>
-          </tr>
+            <tr>
+              <th>Introduction</th>
+              <th><%= @user.introduction %></th>
+            </tr>
+            <tr>
+              <th>フォロー数</th>
+              <th>
+                <%= link_to public_user_followings_path(@user) do %>
+                  <%= @user.followings.count %>
+                <% end %>
+              </th>
+            </tr>
+            <tr>
+              <th>フォロワー数</th>
+              <th>
+                <%= link_to public_user_followers_path(@user) do %>
+                  <%= @user.followers.count %>
+                <% end %>
+              </th>
+            </tr>
+            <tr>
+              <th>いいね一覧</th>
+              <th>
+                <%= link_to favorites_public_user_path(@user) do %>
+                  <%= @user.favorites.count %>
+                <% end %>
+              </th>
+            </tr>
           <% end %>
-<!--ここまで -->
 
 <!-- 詳細ページが自分のページであるかで分岐 -->
 
-  <% if @user ==  current_user && @user.name != "guestuser" %>
-    <p><%= link_to "プロフィール編集", edit_public_user_path %></p>
-  <% else %>
+          <% if @user ==  current_user && @user.name != "guestuser" %>
+            <p><%= link_to "プロフィール編集", edit_public_user_path %></p>
+          <% else %>
 
-<!-- そうでない場合にフォローボタン-->
-    <% if current_user.following?(@user) && @user.name != "guestuser" %>
-      <p><%= link_to "フォロー外す", public_user_relationships_path(@user), method: :delete %></p>
-    <% elsif @user.name != "guestuser" %>
-      <p><%= link_to "フォローする", public_user_relationships_path(@user), method: :post %></p>
-    <% end %>
-
-  <% end %>
-</table>
-</div>
+    <!-- そうでない場合にフォローボタン-->
+            <% if current_user.following?(@user) && @user.name != "guestuser" %>
+              <p><%= link_to "フォロー外す", public_user_relationships_path(@user), method: :delete %></p>
+            <% elsif @user.name != "guestuser" %>
+              <p><%= link_to "フォローする", public_user_relationships_path(@user), method: :post %></p>
+            <% end %>
+          <% end %>
+        </table>
+    </div>
 
 <!-- 投稿一覧 -->
 
-<div class='col-md-8 offset-md-1'>
-  <h2>星空ギャラリー</h2>
-<% @photos.each do |photo| %>
-  <h3>[<%= photo.title %>]</h3>
-  <%= link_to public_photo_path(photo.id) do %>
-    <%= image_tag photo.get_image("1000x1000") %>
-  <% end %>
-  <p>紹介：<%= photo.introduction %></p>
-  <p><%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id) %></p>
-<% end %>
-</div>
+    <div class='col-9'>
+      <h2>星空ギャラリー</h2>
+      <% @photos.each do |photo| %>
+        <h3>[<%= photo.title %>]</h3>
+        <%= link_to public_photo_path(photo.id) do %>
+          <%= image_tag photo.get_image("1000x1000") %>
+        <% end %>
+        <p>紹介：<%= photo.introduction %></p>
+        <p><%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id) %></p>
+      <% end %>
+    </div>
 
-</div>
+  </div>
 </div>

@@ -19,7 +19,7 @@ class Photo < ApplicationRecord
     favorites.exists?(user_id: user.id)
   end
 
-#部分一致で検索
+#部分一致で検索(タイトルと紹介文でヒット)
   def self.looks(search, word)
     @photo = Photo.where("title LIKE? OR introduction LIKE?","%#{word}%","%#{word}%")
   end

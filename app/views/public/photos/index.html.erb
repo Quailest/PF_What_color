@@ -1,41 +1,43 @@
-<div class="container py-5">
-
+<div class="container">
   <div class="row">
-    <% @photos.each do |photo| %>
-
-    <div class="col mx-auto mt-4">
-      <div class="card shadow-lg" style="width: 60rem;">
-        <%= link_to public_photo_path(photo.id) do %>
-          <%= image_tag photo.get_image('1000x1000'), class:"card-img-top"; %>
-        <% end %>
-        <div class="card-body">
-          <%= link_to public_user_path(photo.user.id) do %>
-            <%= image_tag photo.user.get_profile_image("100x100"),class:"mt-3 rounded-circle"; %>
-          <% end %>
+    <div class="col-9">
+      <% @photos.each do |photo| %>
+        <div class="row">
+          <div class="col mx-auto mt-4">
+            <div class="card shadow-lg">
+              <%= link_to public_photo_path(photo.id) do %>
+                <%= image_tag photo.get_image('1000x1000'), class:"card-img-top"; %>
+              <% end %>
+              <p class="card-title">
+                <%= link_to(public_photo_path(photo.id), class:"text-dark") do %>
+                  <strong><%= photo.title %></strong>
+                <% end %>
+              </p>
+              <p><%= photo.introduction %></p>
+              <div class="card-body">
+                <%= link_to public_user_path(photo.user.id) do %>
+                  <%= image_tag photo.user.get_profile_image("100x100"),class:"mt-3 rounded-circle"; %>
+                <% end %>
+              </div>
+              <span>by <%= photo.user.name %> | </span>
+              <span>
+                <%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id), class:"text-dark" %>
+              </span>
+            </div>
+          </div>
         </div>
-        <p class="card-title">
-          <%= link_to(public_photo_path(photo.id), class:"text-dark") do %>
-            <strong><%= photo.title %></strong>
-          <% end %>
-        </p>
-        <p><%= photo.introduction %></p>
-        <span>by <%= photo.user.name %> | </span>
-        <span>
-          <%= link_to "#{photo.comments.count} コメント", public_photo_path(photo.id), class:"text-dark" %>
-        </span>
-      </div>
+      <% end %>
     </div>
-    <% end %>
 
-    <div class="col mx-auto mt-4">
-    <p>タグ検索</p>
-    <%= form_tag({controller:"photos",action:"index"}, method: :get) do %>
-    <% Tag.all.each do |t| %>
-        <%= check_box :tag_ids, t.name %><%= t.name %>
-    <% end %>
-    <%= submit_tag '検索' %>
-    <% end %>
-
+<%#タグ検索 %>
+    <div class="col-3 mx-auto mt-4">
+      <p><タグ検索></p>
+      <%= form_tag({controller:"photos",action:"index"}, method: :get) do %>
+        <% Tag.all.each do |t| %>
+          <%= check_box :tag_ids, t.name %><%= t.name %>
+        <% end %>
+        <%= submit_tag '検索' %>
+      <% end %>
     </div>
   </div>
 </div>
