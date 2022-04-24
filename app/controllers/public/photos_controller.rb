@@ -2,6 +2,11 @@ class Public::PhotosController < ApplicationController
 
   def new
     @photo=Photo.new
+
+    if params[:tag]
+      Tag.create(name: params[:tag])
+    end
+
   end
 
   def create
@@ -13,6 +18,15 @@ class Public::PhotosController < ApplicationController
 
   def index
     @photos=Photo.all.order(created_at: :desc)
+
+    if params[:tag_ids]
+      @photos = []
+      params[:tag_ids].each do |key, value|
+        @photos += Tag.find_by(name: key).photos if value == "1"
+      end
+      @photos.uniq!
+    end
+
   end
 
   def show
@@ -39,6 +53,6 @@ class Public::PhotosController < ApplicationController
   private
 
   def photo_params
-    params.require(:photo).permit(:title, :introduction, :location, :lens, :camera, :date, :image, :photo_id)
+    params.require(:photo).permit(:title, :introduction, :location, :lens, :camera, :date, :image, :photo_id, tag_ids: [])
   end
 end

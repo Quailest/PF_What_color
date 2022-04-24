@@ -2,6 +2,12 @@
     <div class="row">
       <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <h2>写真の情報入力</h2>
+      <%= form_tag({controller:"photos",action:"new"}, method: :get,) do %>
+    <%= text_field_tag :tag %>
+    <%= submit_tag 'タグを追加' %>
+  <% end %>
+
+
       <%= form_with model: @photo,url: public_photos_path, local:true do |f| %>
 
       <div class="form-group">
@@ -37,6 +43,17 @@
   <div class="form-group">
     <%= f.label :date %>
     <%= f.text_field :date,class: "form-control date" %>
+  </div>
+
+  <div class='form-group'>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+      <div class='form-check'>
+        <%= tag.label class: 'form-check-label' do %>
+          <%= tag.check_box class: 'form-check-input' %>
+          <%= tag.text %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-group">

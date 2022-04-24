@@ -37,7 +37,6 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    root to: 'homes#top'
     resources :photos, only: [:index,:show, :edit, :update,:destroy,] do
       resources :comments, only: [:destroy]
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_15_164554) do
+ActiveRecord::Schema.define(version: 2022_04_24_050820) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -67,6 +67,15 @@ ActiveRecord::Schema.define(version: 2022_04_15_164554) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "photo_tag_relations", force: :cascade do |t|
+    t.integer "photo_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["photo_id"], name: "index_photo_tag_relations_on_photo_id"
+    t.index ["tag_id"], name: "index_photo_tag_relations_on_tag_id"
+  end
+
   create_table "photos", force: :cascade do |t|
     t.string "title"
     t.text "introduction"
@@ -82,6 +91,12 @@ ActiveRecord::Schema.define(version: 2022_04_15_164554) do
   create_table "relationships", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -103,4 +118,6 @@ ActiveRecord::Schema.define(version: 2022_04_15_164554) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "photo_tag_relations", "photos"
+  add_foreign_key "photo_tag_relations", "tags"
 end

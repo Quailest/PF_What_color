@@ -4,6 +4,8 @@ class Photo < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  has_many :photo_tag_relations, dependent: :destroy
+  has_many :tags, through: :photo_tag_relations, dependent: :destroy
 
   def get_image(size)
     unless image.attached?

@@ -6,7 +6,7 @@
       <th></th>
       <th>Title</th>
       <th>Introduction</th>
-      <th></th>
+      <th>Image</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,6 +17,7 @@
         <td></td>
         <td><%= photo.title %></td>
         <td><%= photo.introduction %></td>
+        <td><%= image_tag photo.get_image('100x100') %></td>
         <td>
           <%= link_to "Show",public_photo_path(photo.id) %>
         </td>

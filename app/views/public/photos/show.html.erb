@@ -16,6 +16,9 @@
     <p>撮影レンズ：<%= @photo.lens %></p>
     <p>撮影日：<%= @photo.date %></p>
     </div>
+    <% @photo.tags.each do |tag| %>
+    <span><%= tag.name %></span>
+<% end %>
 <!--いいねボタン-->
 <td>
   <div id="favorite_buttons_<%= @photo.id %>">
