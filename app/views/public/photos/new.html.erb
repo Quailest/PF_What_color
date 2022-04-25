@@ -2,6 +2,15 @@
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
       <h2>写真の情報入力</h2>
+      <% if @photo.errors.any? %>
+        <%= @photo.errors.count %>件のエラーが発生しました
+        <ul>
+          <% @photo.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
       <%= form_with model: @photo,url: public_photos_path, local:true do |f| %>
 
       <div class="form-group">
@@ -16,30 +25,31 @@
 
       <div class="form-group">
         <%= f.label :introduction %>
-        <%= f.text_field :introduction,class: "form-control introduction" %>
+        <%= f.text_field :introduction,placeholder: "(任意)",class: "form-control introduction" %>
       </div>
 
       <div class="form-group">
         <%= f.label :location %>
-        <%= f.text_field :location,class: "form-control location" %>
+        <%= f.text_field :location,placeholder: "(任意)",class: "form-control location" %>
       </div>
 
       <div class="form-group">
         <%= f.label :lens %>
-        <%= f.text_field :lens,class: "form-control lens" %>
+        <%= f.text_field :lens,placeholder: "(任意)",class: "form-control lens" %>
       </div>
 
       <div class="form-group">
         <%= f.label :camera %>
-        <%= f.text_field :camera,class: "form-control camera" %>
+        <%= f.text_field :camera,placeholder: "(任意)",class: "form-control camera" %>
       </div>
 
       <div class="form-group">
         <%= f.label :date %>
-        <%= f.text_field :date,class: "form-control date" %>
+        <%= f.text_field :date,placeholder: "(任意)",class: "form-control date" %>
       </div>
 
       <div class='form-group'>
+        <p>タグを付ける</p>
         <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
           <div class='form-check'>
             <%= tag.label class: 'form-check-label' do %>

@@ -7,11 +7,10 @@ class Photo < ApplicationRecord
   has_many :photo_tag_relations, dependent: :destroy
   has_many :tags, through: :photo_tag_relations, dependent: :destroy
 
+  validates :title, presence: true
+  validates :image, presence: true
+
   def get_image(size)
-    unless image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-    end
     image.variant(resize:[size]).processed
   end
 

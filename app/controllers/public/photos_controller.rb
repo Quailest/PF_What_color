@@ -7,8 +7,11 @@ class Public::PhotosController < ApplicationController
   def create
     @photo=Photo.new(photo_params)
     @photo.user_id = current_user.id
-    @photo.save
-    redirect_to public_photos_path
+    if @photo.save
+      redirect_to public_photos_path
+    else
+      render :new
+    end
   end
 
   def index
@@ -41,7 +44,7 @@ class Public::PhotosController < ApplicationController
 
   def destroy
     @photo = Photo.find(params[:id])
-    @photo.delete
+    @photo.destroy
     redirect_to public_photos_path
   end
 
