@@ -9,7 +9,18 @@ Admin.create!(email: "admin@admin",
              password:  "testtest"
              )
 
-Tag.create!([
+User.create!(
+  [
+    {name: "Akira",introduction: "星景写真が好きです。よろしくお願いします!",email: "aa@aa",password: "abcde0000"},
+    {name: "Ryota",introduction: "東北在住。星景写真が好きです。よろしくお願いします!",email: "bb@bb",password: "abcde0000"},
+    {name: "John",introduction: "オーストラリア在住。星景写真が好きです。よろしくお願いします!",email: "cc@cc",password: "abcde0000"}
+  ]
+)
+
+Tag.create!(
+  [
     {name: '天の川'},
-    {name: '夏の大三角'}
-    ])
+    {name: '人物'},
+    {name: 'スタートレイル'}
+  ]
+)
